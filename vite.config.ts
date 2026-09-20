@@ -4,5 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  test: { environment: 'jsdom', setupFiles: ['./src/test/setup.ts'], css: false },
+  build: { rollupOptions: { output: { manualChunks: { charts: ['recharts'], icons: ['lucide-react'] } } } },
+  test: { environment: 'jsdom', setupFiles: ['./src/test/setup.ts'], css: false, include: ['src/**/*.test.{ts,tsx}'], maxWorkers: 2 },
 })

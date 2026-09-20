@@ -3,3 +3,5 @@ dist/
 *.local
 *.tsbuildinfo
 .verification/
+playwright-report/
+test-results/
