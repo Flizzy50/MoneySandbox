@@ -8,7 +8,7 @@ button, summary, select { cursor: pointer; }
 button { transition: background .15s, border-color .15s; }
 button:disabled { cursor: default; opacity: .65; }
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid #a3e8bc; outline-offset: 4px; }
-h1, h2, p { margin: 0; }
+@layer base { h1, h2, p { margin: 0; } }
 h2 { font-size: 16px; font-weight: 600; letter-spacing: -.3px; }
 .muted { color: #9aa7bb; }.dim { color: #8390a5; }.positive { color: #a3e8bc; }.negative { color: #f1a09a; }.lavender-text { color: #c2aaed; }
 .site-header { height: 78px; border-bottom: 1px solid #222b39; background: #0d1420; }
@@ -37,4 +37,13 @@ input[type=range] { display: block; width: 100%; height: 5px; appearance: none; 
 @media (max-width: 1150px) { .dashboard { padding-left: 25px; padding-right: 25px; }.nav-inner { padding: 0 25px; }.workspace-grid { grid-template-columns: minmax(0,1fr) 310px; gap: 16px; }.panel { padding: 19px; }.monthly-impact { margin-left: -19px; margin-right: -19px; padding-left: 19px; padding-right: 19px; }.forecast-numbers { gap: 20px; flex-wrap: wrap; }.impact-pill { padding: 7px; }.forecast-numbers p { font-size: 25px; }.breakdown-grid { grid-template-columns: 1fr; }.empty-impact { min-height: 170px; }.summary-card { padding: 16px; }.persona-chip { display: none; }.chart-axis-caption { display: none !important; }.goal-top { gap: 10px; }.goal-icon { display: none; } }
 @media (max-width: 850px) { .workspace-grid { grid-template-columns: minmax(0,1fr); }.controls-column { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }.controls-panel { grid-row: span 2; }.sandbox-note { grid-column: 2; }.breakdown-grid { grid-template-columns: 1fr 1fr; }.chart-container { height: 300px; }.forecast-numbers { flex-wrap: nowrap; }.summary-grid { gap: 10px; }.summary-value { font-size: 25px; }.summary-card { padding: 14px; }.summary-card .text-sm { font-size: 11px; }.summary-card .text-xs { font-size: 9px; }.nav-actions { gap: 12px; }.synthetic-badge { font-size: 9px; }.goal-icon { display: grid; } }
 @media (max-width: 580px) { .site-header { height: 68px; }.nav-inner { padding: 0 16px; }.brand { font-size: 16px; gap: 8px; }.brand-mark { width: 31px; height: 31px; }.beta-tag, .synthetic-badge { display: none; }.reset-button { font-size: 10px; padding: 7px 9px; }.dashboard { padding: 26px 16px 0; }h1 { font-size: 27px; }.profile-header { margin-bottom: 24px; }.profile-header p { font-size: 12px; line-height: 1.7; }.summary-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }.summary-value { font-size: 27px; }.summary-card .text-xs { font-size: 10px; }.workspace-heading > span:last-child { display: none; }.workspace-heading { margin-top: 25px; }.panel { padding: 17px; }.forecast-numbers { gap: 22px; flex-wrap: wrap; margin-top: 21px; }.forecast-numbers p { font-size: 28px; }.forecast-numbers .impact-pill { max-width: none; flex-basis: 100%; margin-left: 0; justify-content: center; }.chart-container { height: 255px; margin-left: -20px; margin-right: -7px; }.chart-note { font-size: 9px; line-height: 1.6; }.forecast-panel .small-tag { font-size: 8px; padding: 4px 5px; }.forecast-panel h2 { font-size: 15px; }.goal-top h2 { font-size: 14px; }.goal-top p { max-width: 155px; line-height: 1.6; font-size: 10px; }.goal-icon { display: none; }.goal-input { width: 112px; flex-shrink: 0; }.goal-result { align-items: start; line-height: 1.7; }.goal-result > span:last-child { white-space: nowrap; font-size: 10px; }.goal-metrics { gap: 8px 16px; }.breakdown-grid { grid-template-columns: 1fr; }.controls-column { display: flex; }.controls-panel { padding-bottom: 0; }.monthly-impact { margin-left: -17px; margin-right: -17px; padding-left: 17px; padding-right: 17px; }.controls-panel, .expense-panel { width: 100%; }.control-label { font-size: 13px; }.control-meta { font-size: 10px; }.control-label > span { font-size: 11px; }.slider-control { margin-bottom: 28px; }.site-footer { flex-direction: column; gap: 12px; text-align: center; font-size: 9px; }.forecast-details table { font-size: 9px; } }
+.skip-link { opacity: 0; pointer-events: none; }
+.skip-link:focus { opacity: 1; pointer-events: auto; }
+@media (max-width: 850px) {
+  .results-column { display: contents; }
+  .forecast-panel { order: 1; }
+  .controls-column { order: 2; }
+  .goal-panel { order: 3; }
+  .breakdown-grid { order: 4; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }

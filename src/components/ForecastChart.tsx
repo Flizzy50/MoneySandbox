@@ -19,7 +19,7 @@ export function ForecastChart({ simulation, startingSavings }: { simulation: Sim
         <LineChart data={forecast} margin={{ top: 18, right: 18, bottom: 3, left: 0 }} accessibilityLayer>
           <CartesianGrid stroke="#283241" strokeDasharray="3 5" vertical={false} />
           <XAxis dataKey="monthLabel" tickLine={false} axisLine={false} tick={{ fill: '#9ba8bb', fontSize: 12 }} dy={9} padding={{ left: 15, right: 12 }} />
-          <YAxis tickFormatter={value => formatCurrency(value)} width={76} tickLine={false} axisLine={false} tick={{ fill: '#9ba8bb', fontSize: 11 }} domain={['auto', 'auto']} tickCount={5} />
+          <YAxis tickFormatter={value => formatCurrency(value)} width={76} tickLine={false} axisLine={false} tick={{ fill: '#9ba8bb', fontSize: 11 }} domain={[(min: number) => Math.min(0, Math.floor(min / 250) * 250), (max: number) => Math.max(2000, Math.ceil(max / 500) * 500)]} tickCount={5} />
           <Tooltip contentStyle={{ background: '#192331', border: '1px solid #384657', borderRadius: 10, fontSize: 12, color: '#f1f5f9' }} labelStyle={{ color: '#c4cedb', marginBottom: 6 }} formatter={(value, name) => [formatCurrency(Number(value)), name]} cursor={{ stroke: '#617087', strokeDasharray: '3 4' }} />
           {simulation.lowestBalance < 0 && <ReferenceLine y={0} stroke="#e99a91" strokeDasharray="5 5" />}
           {expense && <ReferenceLine x={forecast[expense.monthIndex].monthLabel} stroke="#77728b" strokeDasharray="3 5" />}
