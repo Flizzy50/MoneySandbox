@@ -29,7 +29,7 @@ const schedule: Template[] = [
 ]
 const monthlyVariation = [-2, 1, 3, -1, -3, 2]
 export const alexTransactions: Transaction[] = monthlyVariation.flatMap((variation, monthIndex) =>
-  schedule.map(([day, merchant, amount, category, multiplier = 0], index) => ({
+  schedule.map<Transaction>(([day, merchant, amount, category, multiplier = 0], index) => ({
     id: `alex-${monthIndex + 1}-${String(index + 1).padStart(2, '0')}`,
     date: `2026-${String(monthIndex + 3).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
     merchant, amount: Math.round((amount + variation * multiplier) * 100) / 100,
