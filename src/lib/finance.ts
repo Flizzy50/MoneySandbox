@@ -1,8 +1,23 @@
-import { expenseCategories, type Baseline, type ExpenseCategory, type Transaction } from '../types/finance'
+import { expenseCategories, type Baseline, type BudgetBaseline, type FinancialProfile, type ExpenseCategory, type Transaction } from '../types/finance'
 
 export const toCents = (amount: number): number => Math.round(amount * 100)
 export const fromCents = (amount: number): number => amount / 100
 export const roundMoney = (amount: number): number => fromCents(toCents(amount))
+
+export function baselineFromProfile(profile: FinancialProfile): BudgetBaseline {
+  const categoryAverages = { ...profile.monthlySpending }
+  const expenseCents = expenseCategories.reduce((sum, category) => sum + toCents(categoryAverages[category]), 0)
+  return {
+    averageMonthlyIncome: profile.monthlyIncome,
+    averageMonthlyExpenses: fromCents(expenseCents),
+    monthlySurplus: fromCents(toCents(profile.monthlyIncome) - expenseCents),
+    categoryAverages,
+  }
+}
+
+export function nextForecastMonth(now = new Date()): string {
+  return addMonths(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`, 1)
+}
 
 export function addMonths(month: string, offset: number): string {
   if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(month)) throw new Error('Use a valid YYYY-MM month.')

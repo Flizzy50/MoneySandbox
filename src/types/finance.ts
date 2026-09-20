@@ -9,7 +9,7 @@ export interface Transaction {
   type: 'income' | 'expense'
   category: TransactionCategory
 }
-export const adjustableCategories = ['dining', 'entertainment', 'subscriptions', 'shopping', 'groceries', 'transportation'] as const
+export const adjustableCategories = ['dining', 'entertainment', 'subscriptions', 'shopping', 'groceries', 'transportation', 'housing', 'other'] as const
 export type AdjustableCategory = typeof adjustableCategories[number]
 export interface Scenario {
   categoryAdjustments: Record<AdjustableCategory, number>
@@ -17,13 +17,22 @@ export interface Scenario {
   oneTimeExpense?: { amount: number; monthIndex: number; label: string }
 }
 export interface MonthlySummary { month: string; income: number; expenses: number }
-export interface Baseline {
+export interface BudgetBaseline {
   averageMonthlyIncome: number
   averageMonthlyExpenses: number
   monthlySurplus: number
   categoryAverages: Record<ExpenseCategory, number>
+}
+export interface Baseline extends BudgetBaseline {
   totalHistoricalSpending: number
   months: MonthlySummary[]
+}
+export interface FinancialProfile {
+  name: string
+  monthlyIncome: number
+  startingSavings: number
+  monthlySpending: Record<ExpenseCategory, number>
+  source: 'manual' | 'demo'
 }
 export interface ForecastPoint {
   month: string

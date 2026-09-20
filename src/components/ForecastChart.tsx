@@ -7,7 +7,7 @@ export function ForecastChart({ simulation, startingSavings }: { simulation: Sim
   const { forecast, baselineEnding, scenarioEnding, totalImpact, hasChanges, scenario } = simulation
   const expense = scenario.oneTimeExpense
   return <section className="panel forecast-panel" aria-labelledby="forecast-title">
-    <div className="panel-heading"><div><div className="eyebrow">THE BIG PICTURE</div><h2 id="forecast-title">Your next 6 months</h2></div><span className="small-tag">Sep ’26 — Feb ’27</span></div>
+    <div className="panel-heading"><div><div className="eyebrow">THE BIG PICTURE</div><h2 id="forecast-title">Your next 6 months</h2></div><span className="small-tag">{forecast[0].monthLabel} {forecast[0].month.slice(0, 4)} – {forecast[5].monthLabel} {forecast[5].month.slice(0, 4)}</span></div>
     <div className="forecast-numbers">
       <div><span className="muted text-xs">Baseline balance</span><p data-testid="baseline-ending">{formatCurrency(baselineEnding)}</p></div>
       <div><span className="muted text-xs">Scenario balance</span><p className={hasChanges ? (scenarioEnding < 0 ? 'negative' : 'positive') : ''} data-testid="scenario-ending">{formatCurrency(scenarioEnding)}</p></div>

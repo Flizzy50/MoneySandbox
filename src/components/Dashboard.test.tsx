@@ -1,18 +1,20 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { demoProfile, saveProfile } from '../lib/profile'
 import App from '../App'
 
 describe('dashboard interactions', () => {
+  beforeEach(() => { localStorage.clear(); saveProfile(demoProfile()) })
   it('walks through the complete demo and resets all scenario inputs', async () => {
     const user = userEvent.setup()
     render(<App />)
     expect(screen.getByTestId('baseline-ending')).toHaveTextContent('$1,050')
     expect(screen.getByTestId('scenario-ending')).toHaveTextContent('$1,050')
-    fireEvent.change(screen.getByRole('slider', { name: 'Dining' }), { target: { value: '30' } })
+    fireEvent.change(screen.getByRole('slider', { name: 'Dining' }), { target: { value: '-30' } })
     expect(screen.getByTestId('scenario-ending')).toHaveTextContent('$1,518')
-    fireEvent.change(screen.getByRole('slider', { name: 'Subscriptions' }), { target: { value: '40' } })
-    fireEvent.change(screen.getByRole('slider', { name: 'Earn extra each month' }), { target: { value: '150' } })
+    fireEvent.change(screen.getByRole('slider', { name: 'Subscriptions' }), { target: { value: '-40' } })
+    fireEvent.change(screen.getByRole('slider', { name: 'Change monthly income' }), { target: { value: '150' } })
     expect(screen.getByTestId('scenario-ending')).toHaveTextContent('$2,550')
     await user.click(screen.getByRole('button', { name: 'Add to scenario' }))
     expect(screen.getByTestId('scenario-ending')).toHaveTextContent('$1,850')
@@ -21,7 +23,7 @@ describe('dashboard interactions', () => {
     expect(screen.getByTestId('breakdown-total')).toHaveTextContent('+$800')
     await user.click(screen.getByText('View monthly forecast'))
     const table = screen.getByRole('table')
-    expect(within(table).getByRole('row', { name: /November 2026/ })).toHaveTextContent('$1,025')
+    expect(within(table).getAllByRole('row')[3]).toHaveTextContent('$1,025')
     expect(screen.getByText('$150 short')).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: 'Reset scenario' }))
     expect(screen.getByTestId('scenario-ending')).toHaveTextContent('$1,050')

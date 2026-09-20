@@ -90,8 +90,8 @@ describe('six-month simulation', () => {
     const scenario = defaultScenario(); scenario.categoryAdjustments.dining = -3; scenario.categoryAdjustments.groceries = .5; scenario.categoryAdjustments.shopping = NaN
     scenario.monthlyIncomeDelta = 9999
     const normalized = normalizeScenario(scenario)
-    expect(normalized.categoryAdjustments.dining).toBe(-.5)
-    expect(normalized.categoryAdjustments.groceries).toBe(0)
+    expect(normalized.categoryAdjustments.dining).toBe(-1)
+    expect(normalized.categoryAdjustments.groceries).toBe(.5)
     expect(normalized.categoryAdjustments.shopping).toBe(0)
     expect(normalized.monthlyIncomeDelta).toBe(500)
     expect(run({ ...scenario, monthlyIncomeDelta: Infinity }).scenario.monthlyIncomeDelta).toBe(0)
